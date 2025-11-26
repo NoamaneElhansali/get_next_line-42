@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nelhansa <nelhansa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 22:40:55 by nelhansa          #+#    #+#             */
-/*   Updated: 2025/11/26 22:30:10 by nelhansa         ###   ########.fr       */
+/*   Created: 2025/11/26 19:01:45 by nelhansa          #+#    #+#             */
+/*   Updated: 2025/11/26 22:59:38 by nelhansa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ static char	*ft_extra_line(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd <= 1024)
 		return (NULL);
-	buffer = ft_read_until_newline(fd, buffer);
-	if (!buffer)
+	buffer[fd] = ft_read_until_newline(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	line = ft_extra_line(buffer);
-	buffer = ft_free_buffer(buffer);
+	line = ft_extra_line(buffer[fd]);
+	buffer[fd] = ft_free_buffer(buffer[fd]);
 	return (line);
 }
