@@ -61,7 +61,7 @@ static char	*ft_extra_line(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	staticchar	*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
