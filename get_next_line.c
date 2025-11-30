@@ -6,7 +6,7 @@
 /*   By: nelhansa <nelhansa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 22:40:55 by nelhansa          #+#    #+#             */
-/*   Updated: 2025/11/26 22:30:10 by nelhansa         ###   ########.fr       */
+/*   Updated: 2025/11/29 11:25:45 by nelhansa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ static char	*ft_free_buffer(char *buffer)
 
 static char	*ft_read_until_newline(int fd, char *buffer)
 {
-	char	temp[BUFFER_SIZE + 1];
+	char	*temp;
 	int		n;
 
 	n = 1;
+	temp = malloc((size_t)BUFFER_SIZE + 1);
+	if (!temp)
+		return NULL;
 	while (!ft_strchr(buffer, '\n') && n > 0)
 	{
 		n = read(fd, temp, BUFFER_SIZE);
@@ -40,7 +43,10 @@ static char	*ft_read_until_newline(int fd, char *buffer)
 			break ;
 		temp[n] = '\0';
 		buffer = ft_strjoin(buffer, temp);
+		if (buffer)
+			return ((free(temp)), (NULL));
 	}
+	free(temp);
 	return (buffer);
 }
 
@@ -51,6 +57,7 @@ static char	*ft_extra_line(char *buffer)
 
 	if (!buffer || !buffer[0])
 		return (NULL);
+	len = 0;
 	while (buffer[len] && buffer[len] != '\n')
 		len++;
 	if (buffer[len] == '\n')
@@ -61,7 +68,7 @@ static char	*ft_extra_line(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	staticchar	*buffer;
+	static char	*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
