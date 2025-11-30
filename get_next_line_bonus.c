@@ -6,7 +6,7 @@
 /*   By: nelhansa <nelhansa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 19:01:45 by nelhansa          #+#    #+#             */
-/*   Updated: 2025/11/27 01:17:16 by nelhansa         ###   ########.fr       */
+/*   Updated: 2025/11/29 11:54:27 by nelhansa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*ft_read_until_newline(int fd, char *buffer)
 	int		n;
 
 	n = 1;
-	temp = malloc(BUFFER_SIZE + 1);
+	temp = malloc((size_t)BUFFER_SIZE + 1);
 	while (!ft_strchr(buffer, '\n') && n > 0)
 	{
 		n = read(fd, temp, BUFFER_SIZE);
@@ -67,7 +67,7 @@ char	*get_next_line(int fd)
 	static char	*buffer[1024];
 	char		*line;
 
-	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer[fd] = ft_read_until_newline(fd, buffer[fd]);
 	if (!buffer[fd])
