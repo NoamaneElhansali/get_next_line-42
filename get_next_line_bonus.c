@@ -6,7 +6,7 @@
 /*   By: nelhansa <nelhansa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 19:01:45 by nelhansa          #+#    #+#             */
-/*   Updated: 2025/12/04 14:11:39 by nelhansa         ###   ########.fr       */
+/*   Updated: 2025/12/04 14:39:44 by nelhansa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*ft_read_until_newline(int fd, char *buffer)
 			break ;
 		temp[n] = '\0';
 		buffer = ft_strjoin(buffer, temp);
-		if (!buffer)
+		if(!buffer)
 			return (NULL);
 	}
 	free(temp);
