@@ -6,7 +6,7 @@
 /*   By: nelhansa <nelhansa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 19:01:45 by nelhansa          #+#    #+#             */
-/*   Updated: 2025/11/29 11:54:27 by nelhansa         ###   ########.fr       */
+/*   Updated: 2025/12/04 14:11:39 by nelhansa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static char	*ft_read_until_newline(int fd, char *buffer)
 			break ;
 		temp[n] = '\0';
 		buffer = ft_strjoin(buffer, temp);
+		if (!buffer)
+			return (NULL);
 	}
 	free(temp);
 	return (buffer);
@@ -67,7 +69,7 @@ char	*get_next_line(int fd)
 	static char	*buffer[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer[fd] = ft_read_until_newline(fd, buffer[fd]);
 	if (!buffer[fd])
